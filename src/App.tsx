@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { Card } from './components';
+import 'antd/dist/antd.css';
 import './App.css';
+import { pokemonlistService, PokemonList, PokemonDetail } from './api/pokeApi';
 
-function App() {
+interface MyInterface {
+  type: string;
+}
+
+const App: React.FC = () => {
+  const [data, setData] = useState<[] | undefined>();
+
+  const getList = async () => {
+    try {
+      const result = await pokemonlistService();
+
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getList();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header"></header>
+      <div>{data ? data.map((i: object) => i) : 'loading'}</div>
     </div>
   );
-}
+};
 
 export default App;
