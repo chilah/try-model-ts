@@ -16,19 +16,18 @@ export type PokemonDetail = {
   url: string;
 };
 
-export const pokemonlistService = async (): Promise<
-  PokemonList[] | undefined
-> => {
+export const pokemonlistService = async (): Promise<any> => {
   try {
     const result = await axios.get(`${baseApi}pokemon/`);
     console.log(result);
 
-    const getDetail = await result.data.results.map((pokemon: PokemonDetail) =>
-      pokemonDetail(pokemon.name),
-    );
-    console.log(getDetail);
+    // const getDetail = await result.data.results.map((pokemon: PokemonDetail) =>
+    //   pokemonDetail(pokemon.name),
+    // );
+    // console.log(getDetail);
 
-    return getDetail;
+    // return getDetail;
+    return result;
   } catch (e) {
     console.log(e);
   }
