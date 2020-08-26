@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
+import { PokeListStore } from './model/pokeModel';
+
+const store = PokeListStore.create({});
 
 interface MyInterface {
   type: string;
@@ -11,8 +14,8 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <header className="App-header"></header>
       <div>{data ? data.map((i) => i) : 'loading'}</div>
+      <button onClick={() => store.fetchPokelit()}>click</button>
     </div>
   );
 };
