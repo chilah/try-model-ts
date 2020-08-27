@@ -11,7 +11,7 @@ export const PokeListStore = types
     results: types.array(DefineStore),
   })
   .actions((self) => ({
-    fetchPokelit: flow(function* fetchPokelit() {
+    fetchPokelist: flow(function* fetchPokelist() {
       try {
         const result = yield pokemonlistService();
         console.log(result);
@@ -24,6 +24,5 @@ export const PokeListStore = types
       } catch (e) {
         console.log(e);
       }
-      console.log('fetch');
     }),
   }));
