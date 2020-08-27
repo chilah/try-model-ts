@@ -7,4 +7,4 @@ export const DefineStore = types.model('DefineStore', {
 
 export interface IDefineStore extends Instance<typeof DefineStore> {}
 
-export type ITodo = Instance<typeof DefineStore>;
+// export type ITodo = Instance<typeof DefineStore>;

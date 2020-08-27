@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
 import { PokeListStore } from './model/pokeModel';
+import SearchInput from './components/SearchInput';
 
 const store = PokeListStore.create({});
 
@@ -12,6 +13,7 @@ const App: React.FC = () => {
     <div className="App">
       <div>{data ? data.map((i) => i) : 'loading'}</div>
       <button onClick={() => store.fetchPokelist()}>click</button>
+      <SearchInput onChange={(searchText: string) => console.log(searchText)} />
     </div>
   );
 };
