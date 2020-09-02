@@ -4,16 +4,17 @@ import { Input } from 'antd';
 const { Search } = Input;
 
 export interface ISearchInput {
-  searchText?: string;
-  onChange: (text: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-const SearchInput: React.FC<ISearchInput> = ({ searchText }) => (
+const SearchInput: React.FC<ISearchInput> = ({ value, onChange }) => (
   <Search
     placeholder="input search text"
-    // enterButton="Search"
+    enterButton="Search"
     size="large"
-    onSearch={(value) => console.log(value)}
+    onSearch={onChange}
+    value={value}
   />
 );
 

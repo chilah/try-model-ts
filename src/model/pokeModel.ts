@@ -9,6 +9,7 @@ export const PokeListStore = types
     next: types.optional(types.string, ''),
     previous: types.maybeNull(types.string),
     results: types.array(DefineStore),
+    searchText: types.optional(types.string, ''),
   })
   .actions((self) => ({
     fetchPokelist: flow(function* fetchPokelist() {
@@ -25,4 +26,7 @@ export const PokeListStore = types
         console.log(e);
       }
     }),
+    setSearchText: function (value: string) {
+      self.searchText = value;
+    },
   }));
