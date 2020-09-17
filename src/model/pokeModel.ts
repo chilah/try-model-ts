@@ -1,7 +1,6 @@
 import { types, flow } from 'mobx-state-tree';
 import { DefineStore } from './define-model';
 import { pokemonlistService } from '../api/pokeApi';
-// import { pokemonlistService } from '../api/pokeApi';
 
 export const PokeListStore = types
   .model('PokeListStore', {
@@ -10,12 +9,16 @@ export const PokeListStore = types
     previous: types.maybeNull(types.string),
     results: types.array(DefineStore),
     searchText: types.optional(types.string, ''),
+    isLoading: types.optional(types.boolean, false),
   })
   .actions((self) => ({
-    fetchPokelist: flow(function* fetchPokelist() {
+    fetchPokelist: flow(function* fetchPokelist(pokeDetail: string | number) {
       try {
-        const result = yield pokemonlistService();
-        console.log(result);
+        self.isLoading = true;
+
+        const result = yield pokemonlistService(pokeDetail);
+
+        self.isLoading = false;
         self.count = result.data.count;
         self.next = result.data.next;
         self.previous = result.data.previous;
@@ -24,6 +27,7 @@ export const PokeListStore = types
         return result;
       } catch (e) {
         console.log(e);
+        self.isLoading = false;
       }
     }),
     setSearchText: function (value: string) {

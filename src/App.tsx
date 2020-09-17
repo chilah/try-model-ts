@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import { observer, useLocalStore } from 'mobx-react-lite';
 import { Input } from 'antd';
 import 'antd/dist/antd.css';
 import './App.css';
@@ -9,30 +9,20 @@ import SearchInput from './components/SearchInput';
 const pokeStore = PokeListStore.create({});
 
 const App: React.FC = observer(() => {
-  const [data, setData] = useState<[] | undefined>();
-  const [inputText, setInputText] = useState<string | undefined>();
-
   return (
     <div className="App">
-      <button onClick={() => pokeStore.fetchPokelist()}>click</button>
       <SearchInput
-        onChange={(value: string) => {
-          console.log('value', value);
-          pokeStore.setSearchText(value);
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          pokeStore.setSearchText(e.target.value);
         }}
         value={pokeStore.searchText}
-        // value={inputText}
-        // onChange={(e) => setInputText(e)}
+        onSearch={(searchText: string) => {
+          pokeStore.fetchPokelist(pokeStore.searchText);
+          pokeStore.setSearchText('');
+        }}
+        placeholder="Catch your pokemon!"
+        loading={pokeStore.isLoading}
       />
-      <p>{pokeStore.searchText}</p>
-      <Input
-        placeholder="Basic usage"
-        value={inputText}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setInputText(e.target.value)
-        }
-      />
-      <p>{inputText}</p>
     </div>
   );
 });

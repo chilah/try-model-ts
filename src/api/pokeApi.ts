@@ -1,15 +1,13 @@
 import baseApi from './config';
 import axios from 'axios';
 
-export const pokemonlistService = async (): Promise<any> => {
+export const pokemonlistService = async (
+  pokeDetail: string | number,
+): Promise<any> => {
   try {
-    const result = await axios.get(`${baseApi}pokemon/`);
-    // const getDetail = await result.data.results.map((pokemon: IDefineStore) =>
-    //   pokemonDetail(pokemon.name),
-    // );
-    // console.log(getDetail);
+    const isFillDetail = pokeDetail || '';
+    const result = await axios.get(`${baseApi}/pokemon/${isFillDetail}`);
 
-    // return getDetail;
     return result;
   } catch (e) {
     console.log(e);
@@ -18,9 +16,8 @@ export const pokemonlistService = async (): Promise<any> => {
 
 export const pokemonDetail = async (pokemonName: string): Promise<any> => {
   try {
-    const result = await axios.get(`${baseApi}pokemon/${pokemonName}`);
+    const result = await axios.get(`${baseApi}/pokemon/${pokemonName}`);
 
-    console.log(result);
     return result.data;
   } catch (e) {
     console.log(e);

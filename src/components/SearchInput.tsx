@@ -5,16 +5,27 @@ const { Search } = Input;
 
 export interface ISearchInput {
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearch?: (value: string) => void;
+  placeholder?: string;
+  loading?: boolean;
 }
 
-const SearchInput: React.FC<ISearchInput> = ({ value, onChange }) => (
+const SearchInput: React.FC<ISearchInput> = ({
+  value,
+  onChange,
+  onSearch,
+  placeholder,
+  loading,
+}) => (
   <Search
-    placeholder="input search text"
+    placeholder={placeholder}
     enterButton="Search"
     size="large"
-    onSearch={onChange}
+    onSearch={onSearch}
+    onChange={onChange}
     value={value}
+    loading={loading}
   />
 );
 
